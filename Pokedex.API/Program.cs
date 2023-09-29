@@ -32,6 +32,8 @@ app.UseCors(c =>
     c.AllowAnyHeader();
     c.AllowAnyMethod();
     c.AllowAnyOrigin();
+
+    c.WithExposedHeaders("X-Total-Count");
 });
 #endregion
 

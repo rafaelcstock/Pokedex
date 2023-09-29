@@ -13,13 +13,8 @@ namespace Pokedex.API
             _connector = new DatabaseConnector();
         }
 
-        public Pokemon Create(int Id, string Name, string Description, string Type)
+        public Pokemon Create(Pokemon pokemon)
         {
-            Pokemon pokemon = new Pokemon();
-            pokemon.Id = Id;
-            pokemon.Name = Name;
-            pokemon.Description = Description;
-            pokemon.Type = Type;
             _connector.Create(pokemon);
 
             return pokemon;

@@ -20,9 +20,9 @@ namespace Pokedex.API.Controllers
             var pokedex = _pokedex.Read();
 
 
-            var totalCount = pokedex.Count; 
+            var totalCount = pokedex.Count;
 
-            
+
             Response.Headers.Add("X-Total-Count", totalCount.ToString());
 
             return Ok(pokedex);
@@ -37,23 +37,21 @@ namespace Pokedex.API.Controllers
 
         // POST api/<PokedexController>
         [HttpPost]
-        public Pokemon Post(int Id, string Name, string Description, string Type)
+        public Pokemon Post([FromBody] Pokemon pokemon)
         {
-            Pokemon pokemon = _pokedex.Create(Id, Name, Description, Type);
-
-            return pokemon;
+            return _pokedex.Create(pokemon);
         }
 
         // PUT api/<PokedexController>/5
-        [HttpPut]
-        public Pokemon Put(int Id, string Name, string Description, string Type)
+        [HttpPut("{Id}")]
+        public Pokemon Put(int Id, [FromBody] Pokemon pokemon)
         {
             Pokemon pokemonNew = new Pokemon();
             pokemonNew.Id = Id;
-            pokemonNew.Name = Name;
-            pokemonNew.Description = Description;
-            pokemonNew.Type = Type;
-            Pokemon pokemon = _pokedex.Update(pokemonNew);
+            pokemonNew.Name = pokemon.Name;
+            pokemonNew.Description = pokemon.Description;
+            pokemonNew.Type = pokemon.Type;
+            _pokedex.Update(pokemonNew);
             return pokemon;
         }
 

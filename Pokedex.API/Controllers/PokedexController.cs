@@ -15,9 +15,17 @@ namespace Pokedex.API.Controllers
 
         // GET: api/<PokedexController>
         [HttpGet]
-        public IEnumerable<Pokemon> Get()
+        public IActionResult Get()
         {
-            return _pokedex.Read();
+            var pokedex = _pokedex.Read();
+
+
+            var totalCount = pokedex.Count; 
+
+            
+            Response.Headers.Add("X-Total-Count", totalCount.ToString());
+
+            return Ok(pokedex);
         }
 
         // GET api/<PokedexController>/5
